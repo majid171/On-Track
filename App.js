@@ -28,14 +28,14 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <View>
-          <Loading />
+          <SignUpLogin />
         </View>
       );
     }
     else{
       return(
         <View>
-          <Text>Debugging</Text>
+          
         </View>
       );
     }

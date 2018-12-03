@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
 
     login:{
-        backgroundColor: '#9EAEB4',
+        backgroundColor: '#fff',
         width: 150,
         height: 50,
         alignItems: 'center',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
 
     signup:{
-        backgroundColor: '#9EAEB4',
+        backgroundColor: '#fff',
         width: 150,
         height: 50,
         alignItems: 'center',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
 
     buttonText:{
-        color: 'white',
+        color: '#4f6d7a',
         fontSize: 30,
         textAlign: 'center',
     },
