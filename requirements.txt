@@ -1,0 +1,19 @@
+-------------------------------------------------
+SCREENS
+
+Loading
+Signup/login
+Project List
+Individual Project
+-------------------------------------------------
+
+-------------------------------------------------
+Components
+
+Status bar
+Header -- may need one for different pages
+spinning logo
+project list item
+project item
+project graph
+-------------------------------------------------
