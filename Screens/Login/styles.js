@@ -2,50 +2,66 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
 
-    outerContainer:{
-        
+    container:{
+        backgroundColor: '#4f6d7a',
+        top: 0,
+        height: Dimensions.get('window').height,
+        alignItems: "center",
     },
 
-    middleContainer:{
-        
+    titleArea:{
+        paddingTop: 50,
     },
 
-    innerContainer:{
-        top : 70,
+    title:{
+        fontSize: 100,
+        fontFamily: 'billabong',
+        color: '#fff',
+        textAlign: 'center',
+    },
+
+    in1:{
+        top: 20,
         backgroundColor: 'white',
-        height: Dimensions.get('window').height - 70,
-        alignItems: 'center',
+        width: '80%',
+        height: 48,
+        borderRadius: 4,
+        justifyContent: 'center',
+    },
+
+    in2:{
+        top: 45,
+        backgroundColor: 'white',
+        width: '80%',
+        height: 48,
+        borderRadius: 4,
+        justifyContent: 'center',
+    },
+
+    input:{
+        fontSize: 30,
+        color: '#797979',
+        paddingHorizontal: 5,
     },
 
     buttonArea:{
-        backgroundColor: 'blue',
-        top: 400,
+        top: 100,
+        // paddingTop: 20,
     },
 
-    login:{
-        backgroundColor: '#9EAEB4',
+    button:{
+        backgroundColor: '#fff',
         width: 150,
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10, 
+        borderRadius: 10,
     },
 
     buttonText:{
-        color: 'white',
+        color: '#4f6d7a',
         fontSize: 30,
         textAlign: 'center',
-    },
-
-    fields:{
-
-    },
-
-    input:{
-        color: 'black',
-        height: 50,
-        width: 50,
-        backgroundColor: 'black'
     },
 
 });

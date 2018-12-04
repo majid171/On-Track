@@ -28,7 +28,7 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <View>
-          <SignUpLogin />
+          <Login />
         </View>
       );
     }

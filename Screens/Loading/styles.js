@@ -1,25 +1,22 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
 
-    outerContainer: {
-        flex: 1,
-        top:0,
-        bottom: 0,
-        left: 0,
-        right: 0,
+    container: {
         backgroundColor: '#4f6d7a',
-      },
-    
-      innerContainer:{
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
+        height: Dimensions.get('window').height,
+    },
 
-      spinArea:{
-          top:150,
-      },
+    titleArea:{
+        paddingTop: 150,
+    },
 
+    title:{
+        fontSize: 100,
+        fontFamily: 'billabong',
+        color: '#fff',
+        textAlign: 'center',
+    },
 });
 
 export default styles;
