@@ -36,6 +36,7 @@ export default class Login extends Component{
                         placeholder='Password'
                         autoCapitalize="none" 
                         autoCorrect = {false}
+                        secureTextEntry = {true}
                     />
                 </View>
                 <TouchableOpacity style={s.buttonArea} onPress={this.login}>

@@ -6,6 +6,7 @@ import {Font} from 'expo';
 import Loading from './Screens/Loading';
 import SignUpLogin from './Screens/SignUpLogin';
 import Login from './Screens/Login';
+import Signup from './Screens/Signup';
 
 export default class App extends React.Component {
   
@@ -28,14 +29,14 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <View>
-          <Login />
+          <Signup />
         </View>
       );
     }
     else{
       return(
         <View>
-          
+          <Text>Loading...</Text>
         </View>
       );
     }
