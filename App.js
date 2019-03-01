@@ -8,6 +8,8 @@ import SignUpLogin from './Screens/SignUpLogin';
 import Login from './Screens/Login';
 import Signup from './Screens/Signup';
 import Item from './Components/ProjectItem';
+import ProjectItem from './Components/ProjectItem';
+import ProjectPage from './Screens/ProjectPage'
 
 export default class App extends React.Component {
   
@@ -21,7 +23,9 @@ export default class App extends React.Component {
 
   loadAssets = async () => {
     await Font.loadAsync({
-      billabong: require('./assets/fonts/Billabong.ttf')
+      billabong: require('./assets/fonts/Billabong.ttf'),
+      roboto: require('./assets/fonts/Roboto-Light.ttf'),
+      roboto_medium: require('./assets/fonts/Roboto-Medium.ttf')
     });
     await this.setState({ loaded: true });
   };
@@ -30,7 +34,7 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <View>
-          <Item />
+          <ProjectPage></ProjectPage>
         </View>
       );
     }

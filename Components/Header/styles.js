@@ -3,14 +3,13 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
 
     container:{
-        position: 'absolute',
-        right: 0,
+       // position: 'absolute',
+        width: '100%',
         top: 0,
-        left: 0,
         backgroundColor: '#4f6d7a',
         height: 70,
         alignItems: 'center',
-        justifyContent: 'center',
+        //justifyContent: 'center',
     },
 
     title:{
