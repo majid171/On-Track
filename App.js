@@ -10,6 +10,9 @@ import Signup from './Screens/Signup';
 import Item from './Components/ProjectItem';
 import ProjectItem from './Components/ProjectItem';
 import ProjectPage from './Screens/ProjectPage'
+import Firebase from 'firebase';
+import {DB} from './Helpers/config';
+import Test from './Screens/Test'
 
 export default class App extends React.Component {
   
@@ -34,7 +37,7 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <View>
-          <ProjectPage></ProjectPage>
+          <Test></Test>
         </View>
       );
     }
