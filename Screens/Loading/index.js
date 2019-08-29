@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import s from './styles';
-import {View, Text} from 'react-native';
-import Spinner from '../../Components/Spinner';
+import {View, Text, ActivityIndicator} from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
-import Header from '../../Components/Header';
 export default class Loading extends Component{
 
 
@@ -16,6 +14,7 @@ export default class Loading extends Component{
                 />
                 <View style={s.titleArea}>
                     <Text style={s.title}>On Track</Text>
+                    <ActivityIndicator size='large' color = 'fff'/>
                 </View>
             </View>
         );

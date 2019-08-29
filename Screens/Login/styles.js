@@ -4,13 +4,23 @@ const styles = StyleSheet.create({
 
     container:{
         backgroundColor: '#4f6d7a',
-        top: 0,
         height: Dimensions.get('window').height,
         alignItems: "center",
+        width: '100%',
+    },
+    
+    BottomContainer:{
+        width: '100%',
+        backgroundColor: '#FFF',
+        bottom: 0,
+        top: '15%',
+        height: '100%',
     },
 
     titleArea:{
         paddingTop: 50,
+        width: Dimensions.get('window').width,
+        backgroundColor: '#4f6d7a',
     },
 
     title:{
@@ -20,48 +30,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
-    in1:{
-        top: 20,
-        backgroundColor: 'white',
-        width: '80%',
-        height: 48,
-        borderRadius: 4,
-        justifyContent: 'center',
-    },
-
-    in2:{
-        top: 45,
-        backgroundColor: 'white',
-        width: '80%',
-        height: 48,
-        borderRadius: 4,
-        justifyContent: 'center',
-    },
-
-    input:{
-        fontSize: 30,
-        color: '#797979',
-        paddingHorizontal: 5,
-    },
-
-    buttonArea:{
-        top: 100,
-        // paddingTop: 20,
-    },
-
     button:{
+       padding: 20,
+       justifyContent: 'center',
+    },
+    
+    loginView:{
         backgroundColor: '#fff',
-        width: 150,
-        height: 50,
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
+        //top: 100,
     },
-
+    
     buttonText:{
-        color: '#4f6d7a',
-        fontSize: 30,
-        textAlign: 'center',
+       color: '#1DA1F2',
+       textAlign: 'center',
+       fontSize: 18,
     },
 
 });

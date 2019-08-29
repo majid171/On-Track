@@ -1,18 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-// import Header from './Components/Header';
-import StatusBar from './Helpers/StatusBar';
 import {Font} from 'expo';
 import Loading from './Screens/Loading';
-import SignUpLogin from './Screens/SignUpLogin';
 import Login from './Screens/Login';
-import Signup from './Screens/Signup';
 import Item from './Components/ProjectItem';
 import ProjectItem from './Components/ProjectItem';
 import ProjectPage from './Screens/ProjectPage'
 import Firebase from 'firebase';
 import {DB} from './Helpers/config';
-import Test from './Screens/Test'
+import Test from './Screens/Test';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+
+const AppSwitchNavigator = createSwitchNavigator({
+  Loading: Loading,
+  Login: Login,
+  ProjectPage: ProjectPage
+});
+
+const AppNavigator = createAppContainer(AppSwitchNavigator);
 
 export default class App extends React.Component {
   
@@ -36,15 +41,13 @@ export default class App extends React.Component {
   render() {
     if(this.state.loaded == true){
       return(
-        <View>
-          <Test></Test>
-        </View>
+        <AppNavigator/>
       );
     }
     else{
       return(
         <View>
-          <Text>Loading...</Text>
+          <Text>Error</Text>
         </View>
       );
     }

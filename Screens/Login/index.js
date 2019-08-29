@@ -23,27 +23,14 @@ export default class Login extends Component{
                 />
                 <View style={s.titleArea}>
                     <Text style={s.title}>On Track</Text>
-                </View>                
-                <View style={s.in1}>
-                    <TextInput style = {s.input} 
-                        placeholder='Username'
-                        autoCapitalize="none" 
-                        autoCorrect = {false}
-                    />
                 </View>
-                <View style={s.in2}>
-                    <TextInput style = {s.input} 
-                        placeholder='Password'
-                        autoCapitalize="none" 
-                        autoCorrect = {false}
-                        secureTextEntry = {true}
-                    />
-                </View>
-                <TouchableOpacity style={s.buttonArea} onPress={this.login}>
-                        <View style={s.button}>
-                            <Text style={s.buttonText}>Login</Text>
+                <View style={s.BottomContainer}>
+                    <TouchableOpacity style={s.button} onPress={this.login}>
+                        <View style={s.loginView}>
+                            <Text style={s.buttonText}>Sign in with Google</Text>
                         </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>               
             </View>
         );
     }
