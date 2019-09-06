@@ -1,19 +1,18 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
 
     container:{
-       // position: 'absolute',
+        //position: 'absolute',
         width: '100%',
         top: 0,
-        backgroundColor: '#4f6d7a',
-        height: 70,
+        backgroundColor: '#4682B4',
+        height: Dimensions.get('window').height / 9,
         alignItems: 'center',
-        //justifyContent: 'center',
+        justifyContent: 'center',
     },
 
     title:{
-        paddingTop: 5,
         fontSize: 50,
         fontFamily: 'billabong',
         color: 'white',

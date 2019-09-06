@@ -1,9 +1,10 @@
 import {StyleSheet, Dimensions} from 'react-native'
 
-const colour1 = '#FF0000'
-const colour2 = '#FFA500'
-const colour3 = '#90EE90'
-const colour4 = '#7CFC00'
+const colour1 = '#B22222'
+const colour2 = '#FF7F50'
+const colour3 = '#FFA500'
+const colour4 = '#A6D785'
+const colour5 = '#4CBB17'
 
 const styles = StyleSheet.create({
 
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: 'black',
         //borderRadius: 0,
-        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderTopWidth: StyleSheet.hairlineWidth,
         alignItems: 'center',
     },
 
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         fontFamily: 'roboto',
+        color: 'black'
     },
 
     nameArea:{
@@ -72,9 +74,18 @@ const styles = StyleSheet.create({
         borderRadius: 40,
     },
 
+    percentArea5:{
+        width: '20%',
+        height: '80%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colour5,
+        borderRadius: 40,
+    },
+
     percentText:{
         fontSize: 20,
-        color: 'black',
+        color: 'white',
     },
     
 });

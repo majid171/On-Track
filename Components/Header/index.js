@@ -6,7 +6,7 @@ export default class Header extends Component{
     render(){
         return(
             <View style={s.container}>
-                <Text style={s.title}>On Track</Text>
+                <Text style={s.title}>OnTrack</Text>
             </View>
         );
     }

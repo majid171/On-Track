@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
 function getPercent(){
-    return 75;
+    return 40;
 }
 
 navigate = () =>{
@@ -16,9 +16,11 @@ const ProjectItem = ({name, ...props}) => (
         <View style={s.nameArea}>
             <Text style={s.title}>{name}</Text>
         </View>
-        <View style={getPercent() >= 75 ? s.percentArea4 : 
-                    getPercent() >= 50 ? s.percentArea3 : 
-                    getPercent() >= 25 ? s.percentArea2 : s.percentArea1}>
+        <View style={getPercent() >= 80 ? s.percentArea5 : 
+                    getPercent() >= 60 ? s.percentArea4 : 
+                    getPercent() >= 40 ? s.percentArea3 : 
+                    getPercent() >= 20 ? s.percentArea2 :
+                    s.percentArea1}>
             <Text style={s.percentText}>{getPercent()}%</Text>
         </View>
     </TouchableOpacity>

@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
 
     container:{
-        backgroundColor: '#4f6d7a',
+        backgroundColor: '#4682B4',
         height: Dimensions.get('window').height,
         alignItems: "center",
         width: '100%',
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     titleArea:{
         paddingTop: 50,
         width: Dimensions.get('window').width,
-        backgroundColor: '#4f6d7a',
     },
 
     title:{
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        //top: 100,
     },
     
     buttonText:{

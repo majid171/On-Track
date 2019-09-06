@@ -5,16 +5,18 @@ import Loading from './Screens/Loading';
 import Login from './Screens/Login';
 import Item from './Components/ProjectItem';
 import ProjectItem from './Components/ProjectItem';
-import ProjectPage from './Screens/ProjectPage'
-import Firebase from 'firebase';
+import Dashboard from './Screens/Dashboard'
+import * as firebase from 'firebase';
 import {DB} from './Helpers/config';
-import Test from './Screens/Test';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import Test from './Screens/Test';
+
+firebase.initializeApp(DB);
 
 const AppSwitchNavigator = createSwitchNavigator({
   Loading: Loading,
   Login: Login,
-  ProjectPage: ProjectPage
+  Dashboard: Dashboard
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator);
