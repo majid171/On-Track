@@ -10,13 +10,9 @@ const styles = StyleSheet.create({
 
     container:{
         flexDirection: 'row',
-        //top: 20,
         width: Dimensions.get('window').width / 1.05,
         height: Dimensions.get('window').height / 10,
         backgroundColor: 'white',
-        borderColor: 'black',
-        //borderRadius: 0,
-        borderTopWidth: StyleSheet.hairlineWidth,
         alignItems: 'center',
     },
 
@@ -42,7 +38,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour1,
         borderRadius: 40,
-
     },
 
     percentArea2:{
@@ -52,7 +47,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour2,
         borderRadius: 40,
-
     },
 
     percentArea3:{

@@ -11,7 +11,7 @@ import {DB} from './Helpers/config';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import Test from './Screens/Test';
 
-firebase.initializeApp(DB);
+
 
 const AppSwitchNavigator = createSwitchNavigator({
   Loading: Loading,
@@ -28,6 +28,7 @@ export default class App extends React.Component {
   };
 
   componentWillMount(){
+    firebase.initializeApp(DB);
     this.loadAssets();
   }
 
@@ -44,6 +45,7 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <AppNavigator/>
+        //<Test></Test>
       );
     }
     else{

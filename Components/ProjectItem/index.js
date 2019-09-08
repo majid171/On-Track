@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import s from './styles';
 import {View, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 
 function getPercent(){
-    return 40;
+    return 0;
 }
 
 navigate = () =>{
-    alert('Navigating');
+    alert('Pressed');
 }
 
 const ProjectItem = ({name, ...props}) => (

@@ -39,7 +39,6 @@ export default class Login extends Component {
                 // Sign in with credential from the Google user.
                 firebase.auth().signInWithCredential(credential).then(function (result) {
                     console.log('User Signed In');
-
                     if (result.additionalUserInfo.isNewUser) {
                         firebase
                           .database()
@@ -120,3 +119,4 @@ export default class Login extends Component {
         );
     }
 }
+
