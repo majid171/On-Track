@@ -24,6 +24,29 @@ const styles = StyleSheet.create({
 
     },
 
+    button:{
+        // backgroundColor: 'pink',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        color: 'pink',
+    },
+
+    addBtnNotScrolling:{
+        width: '100%',
+        height: '8%',
+        bottom: 0,
+        //marginBottom: 150,
+        alignItems: 'center',
+        backgroundColor: '#1E90FF',
+        justifyContent: 'center',
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+    },
+
+    addBtnScrolling:{
+      height : 0,  
+    },
+
 });
 
 export default styles;

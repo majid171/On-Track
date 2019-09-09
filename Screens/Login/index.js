@@ -6,7 +6,7 @@ import Header from '../../Components/Header';
 import * as Expo from 'expo';
 import * as Google from 'expo';
 import firebase from 'firebase';
-import {DB} from '../../Helpers/config';
+import {DB, colour, iosID, title} from '../../Helpers/config';
 
 export default class Login extends Component {
 
@@ -83,7 +83,7 @@ export default class Login extends Component {
             const result = await Expo.Google.logInAsync({
                 //androidClientId: YOUR_CLIENT_ID_HERE,
                 behavior: 'web',
-                iosClientId: '886281610716-q11km6mde7bg0sv94ov0n4m1nlcej52e.apps.googleusercontent.com',
+                iosClientId: iosID,
                 scopes: ['profile', 'email'],
             });
             if (result.type === 'success') {
@@ -102,11 +102,11 @@ export default class Login extends Component {
         return (
             <View style={s.container}>
                 <StatusBar
-                    backgroundColor='#4f6d7a'
+                    backgroundColor={colour}
                     barStyle='light-content'
                 />
                 <View style={s.titleArea}>
-                    <Text style={s.title}>OnTrack</Text>
+                    <Text style={s.title}>{title}</Text>
                 </View>
                 <View style={s.BottomContainer}>
                     <TouchableOpacity style={s.button} onPress={() => this.signInWithGoogleAsync()}>

@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     },
 
     picArea:{
-        marginLeft: 300,
+        // marginLeft: 300,
+        marginLeft: Dimensions.get('window').width / 1.3,
     },
 
     pic:{

@@ -1,6 +1,6 @@
-import React, {Component} from 'React';
+import React, { Component } from 'React';
 import s from './styles';
-import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, Image, Button } from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import Header from '../../Components/Header';
 import ProjectItem from '../../Components/ProjectItem';
@@ -8,58 +8,82 @@ import Seperator from '../../Components/Seperator';
 import firebase from 'firebase';
 
 var currentUser = null;
+var projectList = [];
+export default class ProjectPage extends Component {
 
-export default class ProjectPage extends Component{
+    state = {
+        loaded: false,
+    };
 
-    componentWillMount(){
-        firebase.auth().onAuthStateChanged(function(user) {
+
+    loadUser = async () => {
+        await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                firebase.database().ref('users/' + user.uid).on('value', function (snapshot) {
-                    currentUser = snapshot.val();
-                });
-                
+                currentUser = user;
             } else {
                 console.log('Null');
             }
-          });
-        
+        });
+
+
+        var query = firebase.database().ref("projects/" + currentUser.uid).orderByKey();
+        await query.once("value")
+            .then(function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    var projectName = childSnapshot.key;
+                    var projectPercent = snapshot.child(projectName + '/percentComplete').val();
+
+                    projectList.push(
+                        <View key={projectName} style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <ProjectItem name={projectName} percent={projectPercent}></ProjectItem>
+                            <Seperator></Seperator>
+                        </View>
+
+                    );
+                });
+            });
+
+
+        await this.setState({ loaded: true });
     }
 
-    temp = () =>{
-        console.log(currentUser.firstName);
+    componentWillMount() {
+        this.loadUser();
     }
 
-    render(){
-        return(
-            <View style={s.container}>
-                <StatusBar 
-                    backgroundColor='#4682B4'
-                    barStyle='light-content'
-                /> 
-                <Header></Header>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={s.projectsArea}>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                        <Seperator></Seperator>
-                        <ProjectItem name={'OnTrack'}/>
-                    </View>
-                </ScrollView>
-                <TouchableOpacity onPress={() => this.temp()} style={s.newProjectArea}><Text>New Project</Text></TouchableOpacity>
-            </View>
-        );
+    componentWillUnmount(){
+        projectList = [];
+        currentUser = null;
+    }
+
+    addProject = () => {
+    
+    }
+
+    render() {
+        if (this.state.loaded == true) {
+
+            return (
+                <View style={s.container}>
+                    <StatusBar
+                        backgroundColor='#4682B4'
+                        barStyle='light-content'
+                    />
+                    <Header></Header>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={s.projectsArea}>
+                            {projectList}
+                        </View>
+                    </ScrollView>
+                    <TouchableHighlight onPress={() => this.addProject()}>
+                        <Text style={s.addBtnText}>Add a new task</Text>
+                    </TouchableHighlight>
+                </View>
+            );
+        }
+        else {
+            return (<View></View>);
+        }
+
     }
 }

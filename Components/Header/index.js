@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import s from './styles';
 import firebase from 'firebase';
+import {title} from '../../Helpers/config';
 
 var currentUser = null;
 
@@ -37,7 +38,7 @@ export default class Header extends Component{
         if(this.state.loaded == true){
             return(
                 <View style={s.container}>
-                    <Text style={s.title}>OnTrack</Text>
+                    <Text style={s.title}>{title}</Text>
                     <TouchableOpacity style={s.picArea} onPress={() => this.press()}>
                         <Image style={s.pic} source={{ uri: currentUser.photoURL}}/>
                     </TouchableOpacity>

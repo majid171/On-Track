@@ -3,6 +3,7 @@ import s from './styles';
 import {View, Text, ActivityIndicator} from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import firebase from 'firebase';
+import {title, colour} from './../../Helpers/config';
 
 export default class Loading extends Component{
 
@@ -28,11 +29,11 @@ export default class Loading extends Component{
         return(
             <View style={s.container}>
                 <StatusBar
-                    backgroundColor = {'#4682B4'}
+                    backgroundColor = {colour}
                     barStyle= 'light-content'
                 />
                 <View style={s.titleArea}>
-                    <Text style={s.title}>OnTrack</Text>
+                    <Text style={s.title}>{title}</Text>
                     <ActivityIndicator size='large' color = 'fff'/>
                 </View>
             </View>
