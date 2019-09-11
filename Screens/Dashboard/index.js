@@ -1,22 +1,27 @@
 import React, { Component } from 'React';
 import s from './styles';
-import { View, Text, ScrollView, TouchableHighlight, Image, Button } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Keyboard, TextInput, Modal} from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import Header from '../../Components/Header';
 import ProjectItem from '../../Components/ProjectItem';
 import Seperator from '../../Components/Seperator';
 import firebase from 'firebase';
 
-var currentUser = null;
-var projectList = [];
+var currentUser;
+var projectList;
+
 export default class ProjectPage extends Component {
 
     state = {
         loaded: false,
+        modalVisible: false,
+        value: "",
     };
 
 
     loadUser = async () => {
+        console.log('Func called');
+        projectList = [];
         await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 currentUser = user;
@@ -24,7 +29,6 @@ export default class ProjectPage extends Component {
                 console.log('Null');
             }
         });
-
 
         var query = firebase.database().ref("projects/" + currentUser.uid).orderByKey();
         await query.once("value")
@@ -47,17 +51,50 @@ export default class ProjectPage extends Component {
         await this.setState({ loaded: true });
     }
 
+    updateText = async(val) =>{
+        await this.setState({value: val});
+    }
+
     componentWillMount() {
-        this.loadUser();
-    }
-
-    componentWillUnmount(){
-        projectList = [];
         currentUser = null;
+        this.loadUser();
+
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
     }
 
-    addProject = () => {
-    
+    toggleModal = (check) =>{
+        this.setState({modalVisible: check});
+    }
+
+    handleEntry = () =>{
+        this.toggleModal(true);
+    }
+
+    addProject = async (proj) => {
+        var ref = firebase.database().ref("projects/" + currentUser.uid + '/' + proj);
+        await ref.once("value")
+          .then(function(snapshot) {
+            if(snapshot.exists()){
+                alert(proj + ' already exists!');
+                return;
+            }
+            firebase.database().ref('projects/' + currentUser.uid + '/' + proj).set({
+                percentComplete: 0,
+            });
+                
+        });
+       await this.loadUser(); 
+    }
+
+   
+    _keyboardDidHide = () =>{
+        this.toggleModal(false);
+
+        this.addProject(this.state.value);
+        this.setState({value: ""});
     }
 
     render() {
@@ -75,9 +112,21 @@ export default class ProjectPage extends Component {
                             {projectList}
                         </View>
                     </ScrollView>
-                    <TouchableHighlight onPress={() => this.addProject()}>
-                        <Text style={s.addBtnText}>Add a new task</Text>
-                    </TouchableHighlight>
+                    <TouchableOpacity onPress={() => this.handleEntry()} style={s.button}>
+                        <Text style={s.addBtnText}>Add Project</Text>
+                    </TouchableOpacity>
+                    <Modal
+                        animationType= 'slide'
+                        visible={this.state.modalVisible}
+                        transparent={true}
+                        >
+                        <View style={s.modal}>
+                            <TextInput style={s.projInput} placeholder={'Project Name'} autoFocus={true} keyboardAppearance={'dark'}
+                            returnKeyType={'done'} onChangeText={this.updateText} defaultValue={this.state.value}
+                            ></TextInput>
+                        </View>
+                        
+                    </Modal>
                 </View>
             );
         }

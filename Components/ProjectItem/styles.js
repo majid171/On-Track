@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour1,
         borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 2,
     },
 
     percentArea2:{
@@ -47,6 +49,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour2,
         borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 2,
     },
 
     percentArea3:{
@@ -56,6 +60,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour3,
         borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 2,
 
     },
 
@@ -66,6 +72,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour4,
         borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 2,
     },
 
     percentArea5:{
@@ -75,6 +83,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colour5,
         borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 2,
     },
 
     percentText:{

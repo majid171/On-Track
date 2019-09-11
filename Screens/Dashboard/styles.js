@@ -1,13 +1,13 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import { statusBarHeight } from '../../Helpers/StatusBar';
-import { black } from 'ansi-colors';
-
+import {colour} from '../../Helpers/config';
 
 const styles = StyleSheet.create({
 
     container:{
         //alignItems: 'center',
         flex: 1,
+        //justifyContent: 'center',
     },
 
     projectsArea:{
@@ -25,10 +25,45 @@ const styles = StyleSheet.create({
     },
 
     button:{
-        // backgroundColor: 'pink',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        color: 'pink',
+        width: '100%',
+        height: '8%',
+        backgroundColor: colour,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
+        
+    },
+
+    modal:{
+        width: '80%',
+        height: '15%',
+        backgroundColor: '#FFFAFA',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+        left: '10%',
+        top: '25%',
+        opacity: 0.9,
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+
+    projInput:{
+        width: '90%', 
+        height: '60%',
+        backgroundColor: '#FFFAFA',
+        fontSize: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: 'black',
+        borderBottomWidth: 2,
+        textAlign:'center'
+    },
+
+    addBtnText:{
+        color: 'white',
+        fontSize: 20,
     },
 
     addBtnNotScrolling:{
