@@ -9,7 +9,7 @@ import firebase from 'firebase';
 
 var currentUser;
 var projectList;
-
+var isMounted = false;
 export default class ProjectPage extends Component {
 
     state = {
@@ -32,7 +32,7 @@ export default class ProjectPage extends Component {
 
         var query = firebase.database().ref("projects/" + currentUser.uid).orderByKey();
         await query.once("value")
-            .then(function (snapshot) {
+            .then((snapshot) => {
                 snapshot.forEach(function (childSnapshot) {
                     var projectName = childSnapshot.key;
                     var projectPercent = snapshot.child(projectName + '/percentComplete').val();
@@ -45,32 +45,39 @@ export default class ProjectPage extends Component {
 
                     );
                 });
+                this.setState({ loaded: true });
             });
 
 
-        await this.setState({ loaded: true });
+       
     }
 
     updateText = async(val) =>{
         await this.setState({value: val});
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        isMounted = true;
         currentUser = null;
-        this.loadUser();
 
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
+        if(isMounted == true){
+            this.loadUser();
+
+            this.keyboardDidHideListener = Keyboard.addListener(
+                'keyboardDidHide',
+                this._keyboardDidHide,
+            );
+        }  
+    }
+
+    componentWillUnmount(){
+        isMounted = false;
+        this.keyboardDidHideListener.remove();        
+        this.setState({loaded: false, value: "", modalVisible: false});
     }
 
     toggleModal = (check) =>{
         this.setState({modalVisible: check});
-    }
-
-    handleEntry = () =>{
-        this.toggleModal(true);
     }
 
     addProject = async (proj) => {
@@ -112,7 +119,7 @@ export default class ProjectPage extends Component {
                             {projectList}
                         </View>
                     </ScrollView>
-                    <TouchableOpacity onPress={() => this.handleEntry()} style={s.button}>
+                    <TouchableOpacity onPress={() => this.toggleModal(true)} style={s.button}>
                         <Text style={s.addBtnText}>Add Project</Text>
                     </TouchableOpacity>
                     <Modal
