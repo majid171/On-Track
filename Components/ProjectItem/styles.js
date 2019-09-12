@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
 
     container:{
         flexDirection: 'row',
-        width: Dimensions.get('window').width / 1.05,
+        width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 10,
-        backgroundColor: 'white',
         alignItems: 'center',
+        backgroundColor: 'white',
     },
 
     title:{
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         borderColor: 'black',
         borderWidth: 2,
+        right: 10,
     },
 
     percentArea2:{
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         borderColor: 'black',
         borderWidth: 2,
+        right: 10,
     },
 
     percentArea3:{
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         borderColor: 'black',
         borderWidth: 2,
-
+        right: 10,
     },
 
     percentArea4:{
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         borderColor: 'black',
         borderWidth: 2,
+        right: 10,
     },
 
     percentArea5:{
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         borderColor: 'black',
         borderWidth: 2,
+        right: 10,
     },
 
     percentText:{

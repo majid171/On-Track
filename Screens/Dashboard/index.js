@@ -1,15 +1,17 @@
 import React, { Component } from 'React';
 import s from './styles';
-import { View, Text, ScrollView, TouchableOpacity, Keyboard, TextInput, Modal} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Keyboard, TextInput, Modal, FlatList, TouchableHighlight } from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import Header from '../../Components/Header';
 import ProjectItem from '../../Components/ProjectItem';
 import Seperator from '../../Components/Seperator';
 import firebase from 'firebase';
+import Swipeout from 'react-native-swipeout';
 
 var currentUser;
 var projectList;
 var isMounted = false;
+
 export default class ProjectPage extends Component {
 
     state = {
@@ -18,9 +20,7 @@ export default class ProjectPage extends Component {
         value: "",
     };
 
-
     loadUser = async () => {
-        console.log('Func called');
         projectList = [];
         await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -33,80 +33,89 @@ export default class ProjectPage extends Component {
         var query = firebase.database().ref("projects/" + currentUser.uid).orderByKey();
         await query.once("value")
             .then((snapshot) => {
-                snapshot.forEach(function (childSnapshot) {
+                snapshot.forEach((childSnapshot) => {
                     var projectName = childSnapshot.key;
                     var projectPercent = snapshot.child(projectName + '/percentComplete').val();
 
-                    projectList.push(
-                        <View key={projectName} style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                            <ProjectItem name={projectName} percent={projectPercent}></ProjectItem>
-                            <Seperator></Seperator>
-                        </View>
-
-                    );
+                    projectList.push({
+                        key: projectName,
+                        title: projectName,
+                        percent: projectPercent,
+                        uid: currentUser.uid,
+                    });
                 });
                 this.setState({ loaded: true });
             });
-
-
-       
     }
 
-    updateText = async(val) =>{
-        await this.setState({value: val});
+    _onPress = async (item) => {
+        alert(item.key);
+        // await firebase.database().ref('projects/' + item.uid + '/' + item.title).remove();
+        // await this.loadUser();
+    }
+
+
+    updateText = async (val) => {
+        await this.setState({ value: val });
     }
 
     componentDidMount() {
         isMounted = true;
         currentUser = null;
 
-        if(isMounted == true){
+        if (isMounted == true) {
             this.loadUser();
 
             this.keyboardDidHideListener = Keyboard.addListener(
                 'keyboardDidHide',
                 this._keyboardDidHide,
             );
-        }  
+        }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         isMounted = false;
-        this.keyboardDidHideListener.remove();        
-        this.setState({loaded: false, value: "", modalVisible: false});
+        this.keyboardDidHideListener.remove();
+        this.setState({ loaded: false, value: "" });
+        this.toggleModal(false);
     }
 
-    toggleModal = (check) =>{
-        this.setState({modalVisible: check});
+    toggleModal = (check) => {
+        this.setState({ modalVisible: check });
     }
 
     addProject = async (proj) => {
         var ref = firebase.database().ref("projects/" + currentUser.uid + '/' + proj);
         await ref.once("value")
-          .then(function(snapshot) {
-            if(snapshot.exists()){
-                alert(proj + ' already exists!');
-                return;
-            }
-            firebase.database().ref('projects/' + currentUser.uid + '/' + proj).set({
-                percentComplete: 0,
+            .then(function (snapshot) {
+                if (snapshot.exists()) {
+                    alert(proj + ' already exists!');
+                    return;
+                }
+                firebase.database().ref('projects/' + currentUser.uid + '/' + proj).set({
+                    percentComplete: 0,
+                    uid: currentUser.uid,
+                });
+
             });
-                
-        });
-       await this.loadUser(); 
+        await this.loadUser();
     }
 
-   
-    _keyboardDidHide = () =>{
+
+    _keyboardDidHide = () => {
         this.toggleModal(false);
 
         this.addProject(this.state.value);
-        this.setState({value: ""});
+        this.setState({ value: "" });
+    }
+
+    deleteItem = async(item) =>{
+        await firebase.database().ref('projects/' + item.uid + '/' + item.title).remove();
+        await this.loadUser();
     }
 
     render() {
         if (this.state.loaded == true) {
-
             return (
                 <View style={s.container}>
                     <StatusBar
@@ -114,25 +123,42 @@ export default class ProjectPage extends Component {
                         barStyle='light-content'
                     />
                     <Header></Header>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={s.projectsArea}>
-                            {projectList}
-                        </View>
-                    </ScrollView>
+                    <FlatList
+                        data={projectList}
+                        ItemSeparatorComponent={() => <Seperator></Seperator>}
+                        renderItem={({ item }) => (
+                            <Swipeout
+                                sensitivity={10}
+                                backgroundColor={'red'} 
+                                left={[{
+                                    onPress: () => this.deleteItem(item),
+                                    text: 'Delete', type:'delete',
+                                    backgroundColor: 'red',
+                                    color: 'white',
+                                }]}
+                                autoClose={true}
+                            >
+                                <TouchableOpacity onPress={() => this._onPress(item)} activeOpacity={1}>
+                                    <ProjectItem name={item.title} percent={item.percent} uid={item.uid}></ProjectItem>
+                                </TouchableOpacity>
+                            </Swipeout>
+
+                        )}
+                    />
                     <TouchableOpacity onPress={() => this.toggleModal(true)} style={s.button}>
                         <Text style={s.addBtnText}>Add Project</Text>
                     </TouchableOpacity>
                     <Modal
-                        animationType= 'slide'
+                        animationType='slide'
                         visible={this.state.modalVisible}
                         transparent={true}
-                        >
+                    >
                         <View style={s.modal}>
                             <TextInput style={s.projInput} placeholder={'Project Name'} autoFocus={true} keyboardAppearance={'dark'}
-                            returnKeyType={'done'} onChangeText={this.updateText} defaultValue={this.state.value}
+                                returnKeyType={'done'} onChangeText={this.updateText} defaultValue={this.state.value}
                             ></TextInput>
                         </View>
-                        
+
                     </Modal>
                 </View>
             );

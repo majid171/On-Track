@@ -1,20 +1,20 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { statusBarHeight } from '../../Helpers/StatusBar';
-import {colour} from '../../Helpers/config';
+import { colour } from '../../Helpers/config';
 
 const styles = StyleSheet.create({
 
-    container:{
+    container: {
         //alignItems: 'center',
         flex: 1,
         //justifyContent: 'center',
     },
 
-    projectsArea:{
+    projectsArea: {
         alignItems: 'center',
     },
 
-    newProjectArea:{
+    newProjectArea: {
         alignItems: 'center',
         backgroundColor: 'pink',
         height: '7%',
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     },
 
-    button:{
+    button: {
         width: '100%',
         height: '8%',
         backgroundColor: colour,
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // borderTopLeftRadius: 30,
         // borderTopRightRadius: 30,
-        
+
     },
 
-    modal:{
+    modal: {
         width: '80%',
         height: '15%',
         backgroundColor: '#FFFAFA',
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
 
-    projInput:{
-        width: '90%', 
+    projInput: {
+        width: '90%',
         height: '60%',
         backgroundColor: '#FFFAFA',
         fontSize: 30,
@@ -58,30 +58,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderColor: 'black',
         borderBottomWidth: 2,
-        textAlign:'center'
+        textAlign: 'center'
     },
 
-    addBtnText:{
+    addBtnText: {
         color: 'white',
         fontSize: 20,
     },
 
-    addBtnNotScrolling:{
-        width: '100%',
-        height: '8%',
-        bottom: 0,
-        //marginBottom: 150,
-        alignItems: 'center',
-        backgroundColor: '#1E90FF',
-        justifyContent: 'center',
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
+    delete:{
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor:'red',
     },
 
-    addBtnScrolling:{
-      height : 0,  
+    deleteText:{
+        color: 'white',
+        fontSize: 20,
+        paddingLeft:5,
+        paddingRight:5,
     },
-
+    
 });
 
 export default styles;

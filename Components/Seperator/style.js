@@ -4,7 +4,8 @@ const style = StyleSheet.create({
 
     container:{
         alignItems: 'center',
-        width: '90%',
+        width: '95%',
+        left: '2.5%',
         borderWidth: StyleSheet.hairlineWidth,
     },
 });
