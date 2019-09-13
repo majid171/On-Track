@@ -10,13 +10,14 @@ import * as firebase from 'firebase';
 import {DB} from './Helpers/config';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import Test from './Screens/Test';
-
+import ProjectPage from './Screens/ProjectPage';
 
 
 const AppSwitchNavigator = createSwitchNavigator({
   Loading: Loading,
   Login: Login,
-  Dashboard: Dashboard
+  Dashboard: Dashboard,
+  ProjectPage: ProjectPage
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator);
@@ -45,7 +46,6 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <AppNavigator/>
-        //<Test></Test>
       );
     }
     else{

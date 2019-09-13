@@ -12,7 +12,7 @@ var currentUser;
 var projectList;
 var isMounted = false;
 
-export default class ProjectPage extends Component {
+export default class Dashboard extends Component {
 
     state = {
         loaded: false,
@@ -35,7 +35,10 @@ export default class ProjectPage extends Component {
             .then((snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                     var projectName = childSnapshot.key;
-                    var projectPercent = snapshot.child(projectName + '/percentComplete').val();
+                    var taskCount = snapshot.child(projectName + '/taskCount').val();
+                    var taskCompletedCount = snapshot.child(projectName + '/taskCompletedCount').val();
+
+                    var projectPercent = taskCount == 0 ? 0 : (taskCompletedCount / taskCount) * 100; 
 
                     projectList.push({
                         key: projectName,
@@ -49,9 +52,7 @@ export default class ProjectPage extends Component {
     }
 
     _onPress = async (item) => {
-        alert(item.key);
-        // await firebase.database().ref('projects/' + item.uid + '/' + item.title).remove();
-        // await this.loadUser();
+        this.props.navigation.navigate('ProjectPage', {projectName: item.title, currentUser: currentUser});    
     }
 
 
@@ -93,8 +94,9 @@ export default class ProjectPage extends Component {
                     return;
                 }
                 firebase.database().ref('projects/' + currentUser.uid + '/' + proj).set({
-                    percentComplete: 0,
                     uid: currentUser.uid,
+                    taskCount: 0,
+                    taskCompletedCount: 0,
                 });
 
             });

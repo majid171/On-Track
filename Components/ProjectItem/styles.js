@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
 
     percentText:{
-        fontSize: 20,
+        fontSize: Dimensions.get('window').width / 20,
         color: 'white',
     },
     
