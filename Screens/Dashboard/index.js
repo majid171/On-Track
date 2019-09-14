@@ -38,7 +38,7 @@ export default class Dashboard extends Component {
                     var taskCount = snapshot.child(projectName + '/taskCount').val();
                     var taskCompletedCount = snapshot.child(projectName + '/taskCompletedCount').val();
 
-                    var projectPercent = taskCount == 0 ? 0 : (taskCompletedCount / taskCount) * 100; 
+                    var projectPercent = taskCount == 0 ? 0 : (taskCompletedCount / taskCount) * 100;
 
                     projectList.push({
                         key: projectName,
@@ -52,7 +52,7 @@ export default class Dashboard extends Component {
     }
 
     _onPress = async (item) => {
-        this.props.navigation.navigate('ProjectPage', {projectName: item.title, currentUser: currentUser});    
+        this.props.navigation.navigate('ProjectPage', { projectName: item.title, currentUser: currentUser });
     }
 
 
@@ -98,9 +98,8 @@ export default class Dashboard extends Component {
                     taskCount: 0,
                     taskCompletedCount: 0,
                 });
-
             });
-        await this.loadUser();
+            await this.loadUser();
     }
 
 
@@ -111,9 +110,10 @@ export default class Dashboard extends Component {
         this.setState({ value: "" });
     }
 
-    deleteItem = async(item) =>{
+    deleteItem = async (item) => {
         await firebase.database().ref('projects/' + item.uid + '/' + item.title).remove();
         await this.loadUser();
+        //projectList.filter(item => item.key !== item.key);
     }
 
     render() {
@@ -130,11 +130,11 @@ export default class Dashboard extends Component {
                         ItemSeparatorComponent={() => <Seperator></Seperator>}
                         renderItem={({ item }) => (
                             <Swipeout
-                                sensitivity={10}
-                                backgroundColor={'red'} 
+                                sensitivity={50}
+                                backgroundColor={'red'}
                                 left={[{
                                     onPress: () => this.deleteItem(item),
-                                    text: 'Delete', type:'delete',
+                                    text: 'Delete', type: 'delete',
                                     backgroundColor: 'red',
                                     color: 'white',
                                 }]}

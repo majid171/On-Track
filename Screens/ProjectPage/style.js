@@ -33,8 +33,26 @@ const style = StyleSheet.create({
 
     chartArea:{
         width: '100%',
-        height: Dimensions.get('window').height / 4.5,
+        height: Dimensions.get('window').height / 4,
         backgroundColor: '#FFFFF0',
+    },
+
+    addButtonArea:{
+        width: '100%',
+        backgroundColor: colour,
+        height: '8%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    addText:{
+        color: 'white',
+        fontSize: 20,
+    },
+
+    text:{
+        fontSize: 50,
+        color: 'black',
     },
     
 });
