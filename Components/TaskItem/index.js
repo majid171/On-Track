@@ -15,7 +15,7 @@ const TaskItem = ({ name, checked, uid, press, ...props }) => (
             center={true}
             checkedIcon='dot-circle-o'
             uncheckedIcon='circle-o'
-            size={35}
+            size={20}
             checked={checked == 1 ? true : false}
             onPress={press}
         />

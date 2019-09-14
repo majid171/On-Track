@@ -37,23 +37,42 @@ const style = StyleSheet.create({
         backgroundColor: '#FFFFF0',
     },
 
-    addButtonArea:{
+    addTask:{
         width: '100%',
-        backgroundColor: colour,
-        height: '8%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: 'white',
+        alignItems:'center',
+        flexDirection: 'row',
+        height: Dimensions.get('window').height / 13,
     },
 
-    addText:{
-        color: 'white',
+    taskInput:{
+        paddingLeft: 20,
         fontSize: 20,
     },
 
-    text:{
-        fontSize: 50,
-        color: 'black',
+    checkBox:{
+        right: 0,
+        position: 'absolute',
+        alignItems: 'flex-end',
     },
+
+    // addButtonArea:{
+    //     width: '100%',
+    //     backgroundColor: colour,
+    //     height: '8%',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
+
+    // addText:{
+    //     color: 'white',
+    //     fontSize: 20,
+    // },
+
+    // text:{
+    //     fontSize: 50,
+    //     color: 'black',
+    // },
     
 });
 

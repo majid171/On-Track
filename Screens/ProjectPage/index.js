@@ -1,14 +1,15 @@
 import React, { Component } from 'React';
 import s from './style';
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, Keyboard, KeyboardAvoidingView } from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import firebase from 'firebase';
 import { Svg } from 'expo';
 import TaskItem from '../../Components/TaskItem';
 import Seperator from '../../Components/Seperator';
+import { TextInput } from 'react-native-gesture-handler';
+import { CheckBox } from 'react-native-elements';
 const { Circle, Rect } = Svg;
 var taskList;
-
 
 export default class ProjectPage extends Component {
 
@@ -18,17 +19,31 @@ export default class ProjectPage extends Component {
         currentUser: null,
         ref: null,
         refresh: false,
+        newTaskValue: '',
     }
 
     async componentDidMount() {
+        taskList = [];
         await this.retreiveValuesFromLastScreen();
         await this.setState({ ref: firebase.database().ref('projects/' + this.state.currentUser.uid + '/' + this.state.projectName + '/') });
         await this.loadTasks();
         await this.setState({ loaded: true });
+        
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
+    }
+
+    _keyboardDidHide = () => {
+        
+        this.addTask(this.state.newTaskValue);
+        this.setState({ newTaskValue: "" });
     }
 
     async componentWillUnmount() {
         await this.setState({ projectName: '', currentUser: null, ref: null, loaded: false });
+        this.keyboardDidHideListener.remove();
     }
 
     retreiveValuesFromLastScreen = async () => {
@@ -42,7 +57,7 @@ export default class ProjectPage extends Component {
         this.props.navigation.navigate('Dashboard');
     }
 
-    refreshState = async () => {
+    refreshState = () => {
         this.setState({ refresh: !this.state.refresh });
     }
 
@@ -63,7 +78,8 @@ export default class ProjectPage extends Component {
                 alert(taskName + ' already exists!');
             }
         });
-        await this.refreshState();
+
+        this.refreshState();
     }
 
     deleteTask = async (taskName) => {
@@ -81,9 +97,9 @@ export default class ProjectPage extends Component {
             }
         });
 
-        var index = taskList.indexOf(taskName);
+        var index = taskList.findIndex(obj => obj.key === taskName);
         taskList.splice(index, 1);
-        await this.refreshState();
+        this.refreshState();
     }
 
     loadTasks = async () => {
@@ -103,6 +119,7 @@ export default class ProjectPage extends Component {
     }
 
     toggle = async (taskName) => {
+
         await this.state.ref.once("value").then((snapshot) => {
 
             var done = snapshot.child('tasks/' + taskName + '/done').val();
@@ -121,21 +138,20 @@ export default class ProjectPage extends Component {
             this.state.ref.update({ taskCompletedCount: newTaskCompletedCount });
             this.state.ref.child('/tasks/' + taskName).update({ done: newDone });
 
-            var index = taskList.indexOf(taskName);
-            taskList.splice(index, 1);
-    
-            taskList.push({
-                key: taskName,
-                done: newDone,
-            });
+            var index = taskList.findIndex(obj => obj.key === taskName);
+            taskList[index].done = newDone;
         });
 
-        await this.refreshState();
+        this.refreshState();
     }
 
+    updateTaskText = (val) => {
+        this.setState({ newTaskValue: val});
+    }
 
     render() {
         if (this.state.loaded == true) {
+            //console.log(taskList);
             return (
                 <View style={s.container}>
                     <StatusBar
@@ -150,25 +166,38 @@ export default class ProjectPage extends Component {
                     </View>
                     <View style={s.chartArea}>
                     </View>
-                    <FlatList
-                        data={taskList}
-                        ItemSeparatorComponent={() => <Seperator></Seperator>}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => this.deleteTask(item.key)}>
-                                <TaskItem name={item.key} checked={item.done} uid={this.state.currentUser.uid} press={() => this.toggle(item.key)}></TaskItem>
-                            </TouchableOpacity>
-                        )}
-                        extraData={this.state.refresh}
-                    />
-                    <TouchableOpacity style={s.addButtonArea} onPress={() => this.addTask('Test')}>
-                        <Text style={s.addText}>Add Task</Text>
-                    </TouchableOpacity>
+                    <KeyboardAvoidingView behavior={'padding'} enabled> 
+                        <FlatList
+                            data={taskList}
+                            ItemSeparatorComponent={() => <Seperator></Seperator>}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => this.deleteTask(item.key)}>
+                                    <TaskItem name={item.key} checked={item.done} uid={this.state.currentUser.uid} press={async() => this.toggle(item.key)}></TaskItem>
+                                </TouchableOpacity>
+                            )}
+                            extraData={this.state.refresh}
+                        />
+                        <Seperator></Seperator>
+                        <View style={s.addTask}>
+                            <TextInput style={s.taskInput} placeholder={'Add Task'} autoFocus={false} keyboardAppearance={'dark'}
+                                returnKeyType={'done'} onChangeText={this.updateTaskText} defaultValue={this.state.newTaskValue}>
+                            </TextInput>
+                            <CheckBox
+                                containerStyle={s.checkBox}
+                                center={true}
+                                checkedIcon='dot-circle-o'
+                                uncheckedIcon='circle-o'
+                                size={20}
+                                checked={false}
+                            />
+                        </View>
+                    </KeyboardAvoidingView>
+
                 </View>
             );
         }
         else {
             return (<View></View>);
         }
-
     }
 }

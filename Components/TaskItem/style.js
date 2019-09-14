@@ -7,25 +7,27 @@ const style = StyleSheet.create({
 
     container:{
         width: '100%',
-        backgroundColor: 'yellow',
+        backgroundColor: 'white',
         alignItems:'center',
         flexDirection: 'row',
         //justifyContent: 'center',
-        height: Dimensions.get('window').height / 10.5,
+        height: Dimensions.get('window').height / 13,
     },
 
     titleArea:{
         alignItems: 'flex-start',
-        left: 20,
+        paddingLeft: 20,
     },
 
     titleText:{
         color: 'black',
-        fontSize: 40,
+        fontSize: 20,
     },  
 
     checkBox:{
-        left: Dimensions.get('window').width / 1.6,
+        right: 0,
+        position: 'absolute',
+        alignItems: 'flex-end',
     },
 
     // checkBoxArea:{
