@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {Font} from 'expo';
+import * as Font from 'expo-font';
 import Loading from './Screens/Loading';
 import Login from './Screens/Login';
 import Item from './Components/ProjectItem';
@@ -46,6 +46,7 @@ export default class App extends React.Component {
     if(this.state.loaded == true){
       return(
         <AppNavigator/>
+        //<Test></Test>
       );
     }
     else{

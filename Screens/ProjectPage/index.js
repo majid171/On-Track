@@ -1,14 +1,14 @@
 import React, { Component } from 'React';
 import s from './style';
-import { View, Text, TouchableOpacity, Image, FlatList, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList, Keyboard, KeyboardAvoidingView, Button, TextInput } from 'react-native';
 import StatusBar from '../../Helpers/StatusBar';
 import firebase from 'firebase';
-import { Svg } from 'expo';
 import TaskItem from '../../Components/TaskItem';
 import Seperator from '../../Components/Seperator';
-import { TextInput } from 'react-native-gesture-handler';
 import { CheckBox } from 'react-native-elements';
-const { Circle, Rect } = Svg;
+import Swipeout from 'react-native-swipeout';
+//import { ProgressCircle } from 'react-native-svg-charts';
+
 var taskList;
 
 export default class ProjectPage extends Component {
@@ -20,6 +20,12 @@ export default class ProjectPage extends Component {
         ref: null,
         refresh: false,
         newTaskValue: '',
+        scrollEnabled: true,
+        i: 0,
+    }
+
+    signOut = () => {
+        firebase.auth().signOut();
     }
 
     async componentDidMount() {
@@ -28,7 +34,7 @@ export default class ProjectPage extends Component {
         await this.setState({ ref: firebase.database().ref('projects/' + this.state.currentUser.uid + '/' + this.state.projectName + '/') });
         await this.loadTasks();
         await this.setState({ loaded: true });
-        
+
         this.keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             this._keyboardDidHide,
@@ -36,7 +42,7 @@ export default class ProjectPage extends Component {
     }
 
     _keyboardDidHide = () => {
-        
+
         this.addTask(this.state.newTaskValue);
         this.setState({ newTaskValue: "" });
     }
@@ -146,7 +152,11 @@ export default class ProjectPage extends Component {
     }
 
     updateTaskText = (val) => {
-        this.setState({ newTaskValue: val});
+        this.setState({ newTaskValue: val });
+    }
+
+    _allowScroll = (scrollEnabled) => {
+        this.setState({ scrollEnabled: scrollEnabled })
     }
 
     render() {
@@ -160,20 +170,47 @@ export default class ProjectPage extends Component {
                     />
                     <View style={s.header}>
                         <TouchableOpacity onPress={() => this.backPress()} style={s.backButtonArea}>
-                            <Image style={{ width: 30, height: 50 }} source={require('../../assets/backButton.png')} />
+                            <Text style={s.backButtonText}>Back</Text>
                         </TouchableOpacity>
-                        <Text style={s.headerText}>{this.state.projectName}</Text>
+                        <View style={s.headerTextArea}>
+                            <Text style={s.headerText}>{this.state.projectName}</Text>
+                        </View>
+                        <TouchableOpacity style={s.picArea} onPress={() => this.signOut()}>
+                            <Image style={s.pic} source={{ uri: this.state.currentUser.photoURL }} />
+                        </TouchableOpacity>
                     </View>
                     <View style={s.chartArea}>
+                        {/* <ProgressCircle
+                            style={{ height: 100, }}
+                            progress={0.7}
+                            progressColor={'blue'}
+                        /> */}
+                        <Text>70%</Text>
                     </View>
-                    <KeyboardAvoidingView behavior={'padding'} enabled> 
+
+
+                    <KeyboardAvoidingView behavior={'padding'} enabled>
                         <FlatList
+                            scrollEnabled={this.state.scrollEnabled}
                             data={taskList}
                             ItemSeparatorComponent={() => <Seperator></Seperator>}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={() => this.deleteTask(item.key)}>
-                                    <TaskItem name={item.key} checked={item.done} uid={this.state.currentUser.uid} press={async() => this.toggle(item.key)}></TaskItem>
-                                </TouchableOpacity>
+                                <Swipeout
+                                    sensitivity={50}
+                                    backgroundColor={'red'}
+                                    left={[{
+                                        onPress: () => this.deleteTask(item.key),
+                                        text: 'Delete', type: 'delete',
+                                        backgroundColor: 'red',
+                                        color: 'white',
+                                    }]}
+                                    autoClose={true}
+                                    scroll={event => { this._allowScroll(event) }}
+                                >
+                                    <View>
+                                        <TaskItem name={item.key} checked={item.done} uid={this.state.currentUser.uid} press={async () => this.toggle(item.key)}></TaskItem>
+                                    </View>
+                                </Swipeout>
                             )}
                             extraData={this.state.refresh}
                         />

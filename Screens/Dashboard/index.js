@@ -157,7 +157,7 @@ export default class Dashboard extends Component {
                     >
                         <View style={s.modal}>
                             <TextInput style={s.projInput} placeholder={'Project Name'} autoFocus={true} keyboardAppearance={'dark'}
-                                returnKeyType={'done'} onChangeText={this.updateText} defaultValue={this.state.value}
+                                returnKeyType={'done'} onChangeText={this.updateText} defaultValue={this.state.value} maxLength={25}
                             ></TextInput>
                         </View>
 
