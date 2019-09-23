@@ -8,6 +8,7 @@ import Seperator from '../../Components/Seperator';
 import { CheckBox } from 'react-native-elements';
 import Swipeout from 'react-native-swipeout';
 //import { ProgressCircle } from 'react-native-svg-charts';
+import Swiper from 'react-native-swiper';
 
 var taskList;
 
@@ -185,7 +186,11 @@ export default class ProjectPage extends Component {
                             progress={0.7}
                             progressColor={'blue'}
                         /> */}
-                        <Text>70%</Text>
+                        {/* <Text>70%</Text> */}
+                        <Swiper>
+                            <View><Text>Hello World</Text></View>
+                            <View><Text>Bye World</Text></View>
+                        </Swiper>
                     </View>
 
 

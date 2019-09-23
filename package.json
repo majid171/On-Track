@@ -23,6 +23,7 @@
     "react-native-swipe-out": "^2.0.14",
     "react-native-swipeable-flat-list": "^0.1.1",
     "react-native-swipeout": "^2.3.6",
+    "react-native-swiper": "^1.5.14",
     "react-navigation": "3.0.9",
     "ws": "^7.1.2",
     "yarn": "^1.17.3"
