@@ -25,7 +25,7 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-swiper": "^1.5.14",
     "react-navigation": "3.0.9",
-    "ws": "^7.1.2",
+    "ws": "^7.4.6",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
